@@ -12,9 +12,8 @@ def test_setup(request):
     datadir = testdir / "data"
     if datadir.exists:
         shutil.rmtree(datadir)  # remove anything left in data directory
-    #filesdir = testdir / "testdata"
-    #filesdir.mkdir()
-    #shutil.copytree(filesdir, testdir)
+    filesdir = testdir / "testdata"
+    shutil.copytree(filesdir, datadir)
 
 
 def test_global_scope(datadir_mgr):
