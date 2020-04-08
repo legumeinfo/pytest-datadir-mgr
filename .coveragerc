@@ -1,0 +1,18 @@
+;
+; Configuration file for coverage tool.
+;
+[run]
+branch = False
+data_file = .coverage
+parallel = True
+omit =
+    tests/*
+    */__main__.py
+
+[report]
+exclude_lines =
+    if self.debug:
+    pragma: no cover
+    raise NotImplementedError
+    if __name__ == .__main__.:
+ignore_errors = True

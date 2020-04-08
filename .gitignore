@@ -1,0 +1,66 @@
+# Archives #
+############
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# OS-generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+thumbs.db
+Thumbs.db
+
+# IDE-generated files #
+#######################
+.idea/
+
+# Python-generated files #
+##########################
+*.pyc
+MANIFEST
+htmlcov
+*.egg-info
+__pycache__
+.cache
+.eggs
+.egg
+.xprocess
+dist
+venv/
+
+# sphinx files #
+################
+docs/_build/
+
+# docutils #
+############
+readme.html
+
+# virtual environment #
+#######################
+venv
+
+# tmp directory #
+#################
+tmp/
+
+# downloaded test data #
+########################
+tests/data
+
+# src directory (git installs)#
+###############################
+src
+
+# coverage data #
+#################
+.coverage
