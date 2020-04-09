@@ -45,7 +45,7 @@ If you haven't previously installed ``poetry``, execute the command: ::
 
 Next, get the master branch from GitHub ::
 
-	git clone https://github.com/ncgr/pytest-datadir-mgr.git
+	git clone https://github.com/legumeinfo/pytest-datadir-mgr.git
 
 Change to the ``datadir-mgr/`` directory and install with poetry: ::
 
@@ -81,35 +81,35 @@ Project Status
     :target: https://pypi.python.org/pypi/pytest-datadir-mgr
     :alt: Python package
 
-.. |repo| image:: https://img.shields.io/github/commits-since/ncgr/pytest-datadir-mgr/0.1.0.svg
-    :target: https://github.com/ncgr/pytest-datadir-mgr
+.. |repo| image:: https://img.shields.io/github/commits-since/legumeinfo/pytest-datadir-mgr/0.1.0.svg
+    :target: https://github.com/legumeinfo/pytest-datadir-mgr
     :alt: GitHub repository
 
 .. |license| image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
-    :target: https://github.com/ncgr/pytest-datadir-mgr/blob/master/LICENSE.txt
+    :target: https://github.com/legumeinfo/pytest-datadir-mgr/blob/master/LICENSE.txt
     :alt: License terms
 
-.. |travis| image:: https://img.shields.io/travis/ncgr/pytest-datadir-mgr.svg
-    :target:  https://travis-ci.org/ncgr/pytest-datadir-mgr
+.. |travis| image:: https://img.shields.io/travis/legumeinfo/pytest-datadir-mgr.svg
+    :target:  https://travis-ci.org/legumeinfo/pytest-datadir-mgr
     :alt: Travis CI
 
 .. |codacy| image:: https://api.codacy.com/project/badge/Grade/b23fc0c167fc4660bb649320e14dac7f
-    :target: https://www.codacy.com/gh/ncgr/pytest-datadir-mgr?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ncgr/pytest-datadir-mgr&amp;utm_campaign=Badge_Grade
+    :target: https://www.codacy.com/gh/legumeinfo/pytest-datadir-mgr?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=legumeinfo/pytest-datadir-mgr&amp;utm_campaign=Badge_Grade
     :alt: Codacy.io grade
 
-.. |coverage| image:: https://codecov.io/gh/ncgr/pytest-datadir-mgr/branch/master/graph/badge.svg
-    :target: https://codecov.io/gh/ncgr/pytest-datadir-mgr
+.. |coverage| image:: https://codecov.io/gh/legumeinfo/pytest-datadir-mgr/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/legumeinfo/pytest-datadir-mgr
     :alt: Codecov.io test coverage
 
 .. |precommit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
     :target: https://github.com/pre-commit/pre-commit
     :alt: pre-commit
 
-.. |issues| image:: https://img.shields.io/github/issues/ncgr/pytest-datadir-mgr.svg
-    :target:  https://github.com/ncgr/pytest-datadir-mgr/issues
+.. |issues| image:: https://img.shields.io/github/issues/legumeinfo/pytest-datadir-mgr.svg
+    :target:  https://github.com/legumeinfo/pytest-datadir-mgr/issues
     :alt: Issues reported
 
-.. |depend| image:: https://api.dependabot.com/badges/status?host=github&repo=ncgr/pytest-datadir-mgr
-     :target: https://app.dependabot.com/accounts/ncgr/repos/236847525
+.. |depend| image:: https://api.dependabot.com/badges/status?host=github&repo=legumeinfo/pytest-datadir-mgr
+     :target: https://app.dependabot.com/accounts/legumeinfo/repos/236847525
      :alt: dependabot dependencies
 

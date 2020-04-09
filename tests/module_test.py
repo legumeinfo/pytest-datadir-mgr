@@ -67,7 +67,8 @@ def test_autosaved_data(datadir_mgr):
     print("testing autosaved data")
     datadir_mgr.add_scope("autosaved data", module="module_test", func="test_in_tmp_dir")
     with pytest.raises(KeyError):  # better not find the log file
-        datadir_mgr[LOGPATH]
+        logpath = datadir_mgr[LOGPATH]
+    print(f"log file {logpath} was not saved, as it should be.")
     with datadir_mgr.in_tmp_dir(inpathlist=[NEWPATH]):
         hellomsg = NEWPATH.open().read()
         assert hellomsg == NEWMSG

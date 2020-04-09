@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"datadir_mgr fixture for pytest."
+"""datadir_mgr fixture for pytest."""
 
 # standard library imports
 import contextlib
@@ -24,6 +24,7 @@ SCOPES = ("function", "class", "module", "global")  # ordered from lowest to hig
 
 
 class DataDirManager(object):
+    
     """Download, cache, and optionally verify and gzip test files from a specified URL."""
 
     class NameObject(object):

@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 def test_setup(request):
-    "Remove datadir, if it exists, and install copies of static data."
+    """Remove datadir, if it exists, and install copies of static data."""
     testdir = Path(request.fspath.dirpath())
     datadir = testdir / "data"
     if datadir.exists():
@@ -17,7 +17,7 @@ def test_setup(request):
 
 
 def test_global_scope(datadir_mgr):
-    "Test global scope."
+    """Test file at global scope."""
     data1_path = datadir_mgr["data1.txt"]
     with open(data1_path, "r") as fh:
         contents = fh.read()
@@ -25,7 +25,7 @@ def test_global_scope(datadir_mgr):
 
 
 def test_add_scope(datadir_mgr):
-    "Test add_scope."
+    """Test add scope to a search path."""
     datadir_mgr.add_scope("function from global", module="module_test", func="test_function_scope")
     data1_path = datadir_mgr["data1.txt"]
     with open(data1_path, "r") as fh:
@@ -34,7 +34,7 @@ def test_add_scope(datadir_mgr):
 
 
 def test_savepath(datadir_mgr, tmpdir):
-    "Test savepath"
+    """Test saving file to a scope."""
     os.chdir(tmpdir)
     data1_path = Path("data1.txt")
     with data1_path.open("w") as fh:
