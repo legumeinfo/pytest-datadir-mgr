@@ -24,7 +24,7 @@ SCOPES = ("function", "class", "module", "global")  # ordered from lowest to hig
 
 
 class DataDirManager(object):
-    
+
     """Download, cache, and optionally verify and gzip test files from a specified URL."""
 
     class NameObject(object):
@@ -109,12 +109,12 @@ class DataDirManager(object):
             outdir.mkdir(exist_ok=True, parents=True)
         return outdir
 
-    def download(self, download_url=None, files=[], scope=None, gunzip=False, md5_check=False, progressbar=False):
+    def download(self, download_url=None, files=None, scope="module", gunzip=False, md5_check=False, progressbar=False):
         """Download files to datafile directory at scope with optional gunzip and MD5 check."""
         if download_url is None:
             raise ValueError("download_url must be specified")
-        if scope is None:  # default value
-            scope = "module"
+        if files is None:
+            raise ValueError("iterable of files must be specified")
         download_path = self.scope_to_path(scope)
         for filename in files:
             if not (download_path / filename).exists():
@@ -158,7 +158,7 @@ class DataDirManager(object):
                     raise ValueError(f"\nhash of {dlname}={hash_val}, expected {md5_val}")
 
     @contextlib.contextmanager
-    def in_tmp_dir(self, inpathlist=[], save_outputs=False, outscope=None, excludepattern=""):
+    def in_tmp_dir(self, inpathlist=None, save_outputs=False, outscope=None, excludepattern=""):
         """Copy data and change context to tmp_path directory."""
         cwd = Path.cwd()
         inpathlist = [Path(path) for path in inpathlist]
@@ -188,7 +188,7 @@ class DataDirManager(object):
             outdir.mkdir(parents=True)
         shutil.copy2(path, outdir / path.name)
 
-    def find_all_files(self, dir, excludepaths=[], excludepattern=None):
+    def find_all_files(self, dir, excludepaths=None, excludepattern=None):
         """Return a list of all files in dir not in exclusion list."""
         file_list = []
         for x in dir.iterdir():
