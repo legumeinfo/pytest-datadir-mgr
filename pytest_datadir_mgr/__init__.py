@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"datadir_mgr fixture for pytest"
+"datadir_mgr fixture for pytest."
 
 # standard library imports
 import contextlib
@@ -24,9 +24,10 @@ SCOPES = ("function", "class", "module", "global")  # ordered from lowest to hig
 
 
 class DataDirManager(object):
-    """Download, cache, and optionally verify and gzip test files from a specified URL"""
+    """Download, cache, and optionally verify and gzip test files from a specified URL."""
 
     class NameObject(object):
+
         """Holder of names for module, class, and function that mimics request."""
 
         def __init__(self, module, cls=None, func=None):
@@ -42,12 +43,15 @@ class DataDirManager(object):
                 self.function = SimpleNamespace(__name__=None)
 
     class ScopedDataDirDict(dict):
+
         """Dictionary of paths specifying test data directories at different scopes."""
 
         class Scope(object):
-            """Class holding a path and a name"""
+
+            """Class holding a path and a name."""
 
             def __init__(self, basepath, name):
+                """Save path and name."""
                 self.path = basepath / name
                 self.name = name
 
@@ -104,10 +108,12 @@ class DataDirManager(object):
             outdir.mkdir(exist_ok=True, parents=True)
         return outdir
 
-    def download(self, download_url=None, files=[], scope="module", gunzip=False, md5_check=False, progressbar=False):
+    def download(self, download_url=None, files=[], scope=None, gunzip=False, md5_check=False, progressbar=False):
         """Download files to datafile directory at scope with optional gunzip and MD5 check."""
         if download_url is None:
             raise ValueError("download_url must be specified")
+        if scope is None:  # default value
+            scope = "module"
         download_path = self.scope_to_path(scope)
         for filename in files:
             if not (download_path / filename).exists():
@@ -136,8 +142,8 @@ class DataDirManager(object):
                 else:
                     trackers = (hasher,)
                 request_download(download_url + dlname, tmp_path, trackers=trackers)
-                hash = hasher.hashobj.hexdigest()
-                if (not md5_check) or (md5_val == hash):
+                hash_val = hasher.hashobj.hexdigest()
+                if (not md5_check) or (md5_val == hash_val):
                     if gunzip:
                         with gzip.open(tmp_path, "rb") as f_in:
                             with path.open("wb") as f_out:
@@ -148,10 +154,10 @@ class DataDirManager(object):
                         tmp_path.rename(path)
                         print(f"downloaded {check_type} file to {path}")
                 else:
-                    raise ValueError(f"\nhash of {dlname}={hashval}, expected {md5_val}")
+                    raise ValueError(f"\nhash of {dlname}={hash_val}, expected {md5_val}")
 
     @contextlib.contextmanager
-    def in_tmp_dir(self, inpathlist=[], save_outputs=False, outscope="module", excludepattern=""):
+    def in_tmp_dir(self, inpathlist=[], save_outputs=False, outscope=None, excludepattern=""):
         """Copy data and change context to tmp_path directory."""
         cwd = Path.cwd()
         inpathlist = [Path(path) for path in inpathlist]
@@ -170,8 +176,10 @@ class DataDirManager(object):
                     self.savepath(outpath, scope=outscope)
             os.chdir(cwd)
 
-    def savepath(self, path, scope="module"):
+    def savepath(self, path, scope=None):
         """Save a path in cwd to datadir at specified scope."""
+        if scope == None:
+            scope = "module"
         scopedir = self.scope_to_path(scope)
         print(f'saving "{path}" to {scopedir}"')
         outdir = scopedir / path.parent
@@ -179,12 +187,12 @@ class DataDirManager(object):
             outdir.mkdir(parents=True)
         shutil.copy2(path, outdir / path.name)
 
-    def find_all_files(self, dir, excludepaths=[], excludepattern=""):
+    def find_all_files(self, dir, excludepaths=[], excludepattern=None):
         """Return a list of all files in dir not in exclusion list."""
         file_list = []
         for x in dir.iterdir():
             if x.is_file() and (x not in excludepaths):
-                if (not excludepattern == "") and (x.match(excludepattern)):
+                if (not excludepattern == None) and (x.match(excludepattern)):
                     continue
                 else:
                     file_list.append(x)
@@ -199,7 +207,8 @@ class DataDirManager(object):
 
 @pytest.fixture
 def datadir_mgr(request, tmp_path):
-    """Fixture allowing downloading and caching of data files.
+    """
+    Fixture allowing downloading and caching of data files.
 
     Inspired by the `pytest-datadir-ng plugin <https://github.com/Tblue/pytest-datadir-ng>`_,
     it implements the same directory hierarchy.

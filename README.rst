@@ -37,7 +37,7 @@ Install via pip ::
 
 For Developers
 --------------
-If you plan to develop ``bionorm``, you'll need to install
+If you plan to develop ``datadir_mgr``, you'll need to install
 the `poetry <https://python-poetry.org>`_ dependency manager.
 If you haven't previously installed ``poetry``, execute the command: ::
 

@@ -23,7 +23,10 @@ def test_function_scope(datadir_mgr):
 def test_download(datadir_mgr):
     print("testing downloads")
     datadir_mgr.download(
-        "https://raw.githubusercontent.com/ncgr/bionorm/master/", files=[DLFILE], scope="module", progressbar=True
+        "https://raw.githubusercontent.com/ncgr/pytest-datadir-mgr/master/",
+        files=[DLFILE],
+        scope="module",
+        progressbar=True,
     )
     bionorm_license_path = datadir_mgr[DLFILE]
     self_license_path = Path(__file__).parent.parent / DLFILE
