@@ -5,15 +5,18 @@ from pathlib import Path
 # third-party imports
 import pytest
 
-DLFILE = "LICENSE"
+
 TESTFILE = "data1.txt"
 NEWPATH = Path("new") / "subdir" / "hello.txt"
 NEWMSG = "data saved from test_in_tmp_dir\n"
 LOGPATH = Path("test_in_tmp_dir.log")
+DLFILE = "LICENSE"
+BSD3 = (Path(__file__).parent.parent / DLFILE).open("r").read()
+REPO_URL = "https://raw.githubusercontent.com/ncgr/pytest-datadir-mgr/master/"
 
 
 def test_function_scope(datadir_mgr):
-    print("testing function scope")
+    """Test function scope."""
     data1_path = datadir_mgr[TESTFILE]
     with open(data1_path, "r") as fh:
         contents = fh.read()
@@ -21,33 +24,37 @@ def test_function_scope(datadir_mgr):
 
 
 def test_download(datadir_mgr):
-    print("testing downloads")
-    datadir_mgr.download(
-        "https://raw.githubusercontent.com/ncgr/pytest-datadir-mgr/master/",
-        files=[DLFILE],
-        scope="module",
-        progressbar=True,
-    )
-    bionorm_license_path = datadir_mgr[DLFILE]
-    self_license_path = Path(__file__).parent.parent / DLFILE
-    with open(bionorm_license_path, "r") as dlfh:
-        BSD3 = dlfh.read()
-    with open(self_license_path, "r") as selffh:
-        license_txt = selffh.read()
+    """Test simple download."""
+    datadir_mgr.download(REPO_URL, files=[DLFILE], scope="module", progressbar=True)
+    with datadir_mgr[DLFILE].open("r") as dlfh:
+        license_txt = dlfh.read()
+    assert license_txt == BSD3
+
+def test_gzipped_download(datadir_mgr):
+    """Test download of gzipped file."""
+    datadir_mgr.download(REPO_URL+"tests/dltest", files=[DLFILE], scope="function", gunzip=True)
+    with datadir_mgr[DLFILE].open("r") as dlfh:
+        license_txt = dlfh.read()
     assert license_txt == BSD3
 
 
+def test_download_with_MD5sum(datadir_mgr):
+    """Test download of gzipped file with MD5 check."""
+    datadir_mgr.download(REPO_URL+"tests/dltest/", files=[DLFILE], scope="function", gunzip=True, md5_check=True)
+    with datadir_mgr[DLFILE].open("r") as dlfh:
+        license_txt = dlfh.read()
+    assert license_txt == BSD3
+
 def test_saved_data(datadir_mgr):
-    print("testing saved data")
+    """Test reading data from previous context."""
     datadir_mgr.add_scope("saved data", module="global_test", func="test_savepath")
     data1_path = datadir_mgr[TESTFILE]
     with open(data1_path, "r") as fh:
         contents = fh.read()
         assert contents == "data saved from test_savepath\n"
 
-
 def test_in_tmp_dir(datadir_mgr):
-    print("testing in_tmp_dir")
+    """Test using context manager with saved data."""
     with datadir_mgr.in_tmp_dir(
         inpathlist=[DLFILE, TESTFILE], save_outputs=True, outscope="function", excludepattern="*.log"
     ):
@@ -64,7 +71,7 @@ def test_in_tmp_dir(datadir_mgr):
 
 
 def test_autosaved_data(datadir_mgr):
-    print("testing autosaved data")
+    """Test using autosaved data."""
     datadir_mgr.add_scope("autosaved data", module="module_test", func="test_in_tmp_dir")
     with pytest.raises(KeyError):  # better not find the log file
         datadir_mgr[LOGPATH]  # NOQA

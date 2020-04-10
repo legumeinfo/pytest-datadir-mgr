@@ -177,10 +177,8 @@ class DataDirManager(object):
                     self.savepath(outpath, scope=outscope)
             os.chdir(cwd)
 
-    def savepath(self, path, scope=None):
+    def savepath(self, path, scope="module"):
         """Save a path in cwd to datadir at specified scope."""
-        if scope == None:
-            scope = "module"
         scopedir = self.scope_to_path(scope)
         print(f'saving "{path}" to {scopedir}"')
         outdir = scopedir / path.parent
@@ -188,10 +186,10 @@ class DataDirManager(object):
             outdir.mkdir(parents=True)
         shutil.copy2(path, outdir / path.name)
 
-    def find_all_files(self, dir, excludepaths=None, excludepattern=None):
-        """Return a list of all files in dir not in exclusion list."""
+    def find_all_files(self, directory, excludepaths=None, excludepattern=None):
+        """Return a list of all files in directory not in exclusion list."""
         file_list = []
-        for x in dir.iterdir():
+        for x in directory.iterdir():
             if x.is_file() and (x not in excludepaths):
                 if (not excludepattern == None) and (x.match(excludepattern)):
                     continue
@@ -208,8 +206,7 @@ class DataDirManager(object):
 
 @pytest.fixture
 def datadir_mgr(request, tmp_path):
-    """
-    Fixture allowing downloading and caching of data files.
+    """Enable downloading and caching of data files.
 
     Inspired by the `pytest-datadir-ng plugin <https://github.com/Tblue/pytest-datadir-ng>`_,
     it implements the same directory hierarchy.
