@@ -96,17 +96,13 @@ Project Status
     :target:  https://travis-ci.org/legumeinfo/pytest-datadir-mgr
     :alt: Travis CI
 
-.. |codacy| image:: https://api.codacy.com/project/badge/Grade/b23fc0c167fc4660bb649320e14dac7f
+.. |codacy| image:: https://api.codacy.com/project/badge/Grade/4580a0a576204fa688cbb75575a1c867
     :target: https://www.codacy.com/gh/legumeinfo/pytest-datadir-mgr?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=legumeinfo/pytest-datadir-mgr&amp;utm_campaign=Badge_Grade
     :alt: Codacy.io grade
 
 .. |coverage| image:: https://codecov.io/gh/legumeinfo/pytest-datadir-mgr/branch/master/graph/badge.svg
     :target: https://codecov.io/gh/legumeinfo/pytest-datadir-mgr
     :alt: Codecov.io test coverage
-
-.. |precommit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
-    :target: https://github.com/pre-commit/pre-commit
-    :alt: pre-commit
 
 .. |issues| image:: https://img.shields.io/github/issues/legumeinfo/pytest-datadir-mgr.svg
     :target:  https://github.com/legumeinfo/pytest-datadir-mgr/issues
