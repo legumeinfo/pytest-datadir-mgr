@@ -158,7 +158,7 @@ class DataDirManager(object):
                     raise ValueError(f"\nhash of {dlname}={hash_val}, expected {md5_val}")
 
     @contextlib.contextmanager
-    def in_tmp_dir(self, inpathlist=None, save_outputs=False, outscope=None, excludepattern=""):
+    def in_tmp_dir(self, inpathlist=None, save_outputs=False, outscope="module", excludepattern=""):
         """Copy data and change context to tmp_path directory."""
         cwd = Path.cwd()
         inpathlist = [Path(path) for path in inpathlist]
