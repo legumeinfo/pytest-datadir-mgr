@@ -98,7 +98,7 @@ class DataDirManager(object):
             self.datapath, self.NameObject(module, cls=cls, func=func), keep_global=False
         )
 
-    def scope_to_path(self, scope, create=True):
+    def scope_to_path(self, scope="module", create=True):
         """Return the path of a request scope with optional directory creation."""
         if scope not in SCOPES:
             raise ValueError(f"unknown datadir_mgr scope {scope}")

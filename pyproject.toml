@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pytest-datadir-mgr"
-version = "0.1.4"
+version = "0.1.5"
 description = "Manager for test data providing downloads, caching of generated files, and a context for temp directories."
 authors = ["Joel Berendzen <joelb@ncgr.org>"]
 license = "BSD-3-Clause"
