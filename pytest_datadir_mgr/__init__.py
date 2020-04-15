@@ -161,11 +161,12 @@ class DataDirManager(object):
     def in_tmp_dir(self, inpathlist=None, save_outputs=False, outscope="module", excludepattern=""):
         """Copy data and change context to tmp_path directory."""
         cwd = Path.cwd()
-        inpathlist = [Path(path) for path in inpathlist]
-        for inpath in inpathlist:
-            inpathdir = self.tmp_path / inpath.parent
-            inpathdir.mkdir(exist_ok=True, parents=True)
-            shutil.copy2(self[Path(inpath)], inpathdir / inpath.name)
+        if inpathlist is not None:
+            inpathlist = [Path(path) for path in inpathlist]
+            for inpath in inpathlist:
+                inpathdir = self.tmp_path / inpath.parent
+                inpathdir.mkdir(exist_ok=True, parents=True)
+                shutil.copy2(self[Path(inpath)], inpathdir / inpath.name)
         os.chdir(self.tmp_path)
         print(f"running test in {self.tmp_path}")
         try:

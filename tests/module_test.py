@@ -53,6 +53,13 @@ def test_saved_data(datadir_mgr):
         contents = fh.read()
         assert contents == "data saved from test_savepath\n"
 
+def test_empty_tmp_dir(datadir_mgr):
+    """Test using context manager with no data."""
+    with datadir_mgr.in_tmp_dir():
+        NEWPATH.parent.mkdir(parents=True, exist_ok=True)
+        with NEWPATH.open("w") as fh:
+            fh.write(NEWMSG)
+
 def test_in_tmp_dir(datadir_mgr):
     """Test using context manager with saved data."""
     with datadir_mgr.in_tmp_dir(
@@ -68,7 +75,6 @@ def test_in_tmp_dir(datadir_mgr):
         with LOGPATH.open("w") as logfh:
             logfh.write("here is a log file")
     assert not dlpath.exists()
-
 
 def test_autosaved_data(datadir_mgr):
     """Test using autosaved data."""
