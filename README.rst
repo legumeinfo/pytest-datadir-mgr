@@ -24,7 +24,9 @@ five methods useful for adding to the test data stored in the repository:
 - The ``in_tmp_dir`` method creates a context in a temporary directory with
   a list of request file paths copied in.  Optionally, all output file paths
   can be saved at a particular scope at cleanup with an optional exclusion
-  filter pattern (e.g., for excluding log files).
+  filter pattern (e.g., for excluding log files).  Note that files in directories
+  that begin with ``test_`` or end with ``_test`` could be confused with
+  scope directories and cannnot be saved.
 - The ``paths_from_scope`` returns a list of all paths to files from a specified scope.
 
 

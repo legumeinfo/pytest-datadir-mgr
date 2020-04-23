@@ -26,7 +26,7 @@ def test_global_scope(datadir_mgr):
 
 def test_add_scope(datadir_mgr):
     """Test add scope to a search path."""
-    datadir_mgr.add_scope("function from global", module="module_test", func="test_function_scope")
+    datadir_mgr.add_scope("function from global", module="2_module_test", func="test_function_scope")
     data1_path = datadir_mgr["data1.txt"]
     with open(data1_path, "r") as fh:
         contents = fh.read()
