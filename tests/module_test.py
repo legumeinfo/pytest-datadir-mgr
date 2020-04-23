@@ -63,7 +63,7 @@ def test_empty_tmp_dir(datadir_mgr):
 def test_in_tmp_dir(datadir_mgr):
     """Test using context manager with saved data."""
     with datadir_mgr.in_tmp_dir(
-        inpathlist=[DLFILE, TESTFILE], save_outputs=True, outscope="function", excludepattern="*.log"
+        inpathlist=[DLFILE, TESTFILE], save_outputs=True, outscope="function", excludepatterns=["*.log"]
     ):
         data1 = open(datadir_mgr[TESTFILE]).read()
         dlpath = Path(DLFILE)

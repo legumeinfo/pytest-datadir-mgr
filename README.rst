@@ -12,7 +12,7 @@ not just filenames.
 The ``datadir_mgr`` behaves like a limited dictionary, with ``datadir_mgr[item]`` returning a path with the
 most specific scope (out of ``global, module, [class], [function]`` that matches the string or path specified
 by ``item``.  In addition to serving data files already stored in the data directory, the fixture provides
-four methods useful for adding to the test data stored in the repository:
+five methods useful for adding to the test data stored in the repository:
 
 - The ``download`` method allows downloading data files into data directories, with
   option MD5 checksum checks, un-gzipping, and a progressbar.
@@ -25,6 +25,7 @@ four methods useful for adding to the test data stored in the repository:
   a list of request file paths copied in.  Optionally, all output file paths
   can be saved at a particular scope at cleanup with an optional exclusion
   filter pattern (e.g., for excluding log files).
+- The ``paths_from_scope`` returns a list of all paths to files from a specified scope.
 
 
 Prerequisites
