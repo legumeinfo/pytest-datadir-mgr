@@ -38,7 +38,7 @@ venv/
 
 # sphinx files #
 ################
-docs/_build/
+docs/build/
 
 # docutils #
 ############
