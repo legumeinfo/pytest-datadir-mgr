@@ -249,7 +249,7 @@ description = "A Python Progressbar library to provide visual (yet text based) p
 name = "progressbar2"
 optional = false
 python-versions = "*"
-version = "3.51.0"
+version = "3.51.1"
 
 [package.dependencies]
 python-utils = ">=2.3.0"
@@ -720,8 +720,8 @@ pluggy = [
     {file = "pluggy-0.13.1.tar.gz", hash = "sha256:15b2acde666561e1298d71b523007ed7364de07029219b604cf808bfa1c765b0"},
 ]
 progressbar2 = [
-    {file = "progressbar2-3.51.0-py2.py3-none-any.whl", hash = "sha256:f2892f08628aa9b488b08d5caa1dbe84b45978054a305f6d1924495d76a2e721"},
-    {file = "progressbar2-3.51.0.tar.gz", hash = "sha256:fb71a37a8430f9a52a7ab8dc3d20f63afa3449da533043395f60d0c80c66dab1"},
+    {file = "progressbar2-3.51.1-py2.py3-none-any.whl", hash = "sha256:5c587d042109b0674b24f5afa5a13f9bb8e19bdaffbedd74ccb00174ec1efaa5"},
+    {file = "progressbar2-3.51.1.tar.gz", hash = "sha256:053ef266d7ee1cf060578ff89339ff722e6281664fb27780c1544c4cb382e587"},
 ]
 py = [
     {file = "py-1.8.1-py2.py3-none-any.whl", hash = "sha256:c20fdd83a5dbc0af9efd622bee9a5564e278f6380fffcacc43ba6f43db2813b0"},
