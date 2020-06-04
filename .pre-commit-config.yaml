@@ -1,0 +1,74 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.5.0
+    hooks:
+    -   id: check-yaml
+    -   id: check-toml
+    -   id: fix-encoding-pragma
+-   repo: https://github.com/psf/black
+    rev: 19.10b0
+    hooks:
+    -   id: black
+- repo: local
+  hooks:
+  - id: flynt
+    name: flynt
+    entry: flynt
+    args: [--fail-on-change]
+    types: [python]
+    language: python
+    additional_dependencies:
+       - flynt
+#-   repo: local
+#    hooks:
+#    -  id: isort
+#       name: run isort
+#       entry: isort
+#       args: [-yq]
+#       language: python
+#       additional_dependencies:
+#         - isort
+#         - toml
+#- repo: local
+#  hooks:
+#  - id: tests
+#    name: run tests
+#    entry: pytest -s
+#    language: python
+#    types: [python]
+#    stages: [push]
+#    additional_dependencies:
+#      - pytest
+#      - pytest-cov
+#- repo: local
+#  hooks:
+#  - id: pydocstyle
+#    name: pydocstyle
+#    description: 'Check for adherence to python docstring conventions.'
+#    entry: pydocstyle
+#    language: python
+#    types: [python]
+#    additional_dependencies:
+#      - pydocstyle
+#- repo: https://github.com/pre-commit/mirrors-pylint
+#  rev: v2.5.2
+#  hooks:
+#    - id: pylint
+#- repo: local
+#  hooks:
+#  - id: bandit
+#    name: bandit
+#    description: 'Find common security issues in Python code'
+#    entry: bandit
+#    language: python
+#    types: [python]
+#- repo: local
+#  hooks:
+#  - id: poetry-dynamic-versioning
+#    name: update version from SCM tags
+#    entry: poetry-dynamic-versioning
+#    always_run: true
+#    exclude: .*
+#    language: python
+#    additional_dependencies:
+#      - poetry-dynamic-versioning

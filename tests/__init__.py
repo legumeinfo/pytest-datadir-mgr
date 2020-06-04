@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""Shared test objects."""
 # standard library imports
 from pathlib import Path
 

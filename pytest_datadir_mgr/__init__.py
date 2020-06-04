@@ -20,14 +20,20 @@ from requests_download import download as request_download
 
 # global constants
 GLOBAL_SUBDIR = "data"
-SCOPES = ("function", "class", "module", "global")  # ordered from lowest to highest
+SCOPES = (
+    "function",
+    "class",
+    "module",
+    "global",
+)  # ordered from lowest to highest
+__version__ = "1.1.0"
 
 
-class DataDirManager(object):
+class DataDirManager:
 
     """Download, cache, and optionally verify and gzip test files from a specified URL."""
 
-    class NameObject(object):
+    class NameObject:
 
         """Holder of names for module, class, and function that mimics request."""
 
@@ -47,7 +53,7 @@ class DataDirManager(object):
 
         """Dictionary of paths specifying test data directories at different scopes."""
 
-        class Scope(object):
+        class Scope:
 
             """Class holding a path and a name."""
 
@@ -59,15 +65,27 @@ class DataDirManager(object):
         def __init__(self, globalpath, nameobj, keep_global=True):
             """Create dictionary of paths at different scopes."""
             dict.__init__(self)  # create empty dict
-            self["global"] = self.Scope(globalpath.parent, str(globalpath.name))
-            self["module"] = self.Scope(self["global"].path, nameobj.module.__name__)
+            self["global"] = self.Scope(
+                globalpath.parent, str(globalpath.name)
+            )
+            module = nameobj.module.__name__
+            module_split = module.split(".")
+            if len(module_split) > 1:  # module could be in tests module
+                module = ".".join(module_split[1:])
+            self["module"] = self.Scope(self["global"].path, module)
             if nameobj.cls is not None:
-                self["class"] = self.Scope(self["module"].path, nameobj.cls.__name__)
+                self["class"] = self.Scope(
+                    self["module"].path, nameobj.cls.__name__
+                )
                 if nameobj.function.__name__ is not None:
-                    self["function"] = self.Scope(self["class"].path, nameobj.function.__name__)
+                    self["function"] = self.Scope(
+                        self["class"].path, nameobj.function.__name__
+                    )
             else:
                 if nameobj.function.__name__ is not None:
-                    self["function"] = self.Scope(self["module"].path, nameobj.function.__name__)
+                    self["function"] = self.Scope(
+                        self["module"].path, nameobj.function.__name__
+                    )
             if not keep_global:
                 del self["global"]
 
@@ -82,7 +100,9 @@ class DataDirManager(object):
 
     def __getitem__(self, filepath):
         """Look for a filepath in all the datadirs, with smallest scope first."""
-        for scopekey in reversed(self.scopes.keys()):  # search last-added first
+        for scopekey in reversed(
+            self.scopes.keys()
+        ):  # search last-added first
             for level in SCOPES:  # search smallest scope first
                 if level in self.scopes[scopekey]:  # not every scope may exist
                     levelpath = self.scopes[scopekey][level].path
@@ -90,14 +110,21 @@ class DataDirManager(object):
                     datapath = levelpath / filepath
                     if datapath.exists():
                         if self.verbose:
-                            print(f'path "{filepath}" found in scope "{scopekey}" level "{level}" name "{name}"')
+                            print(
+                                f'path "{filepath}" found in scope "{scopekey}"'
+                                + f'" level "{level}" name "{name}"'
+                            )
                         return datapath
-        raise KeyError(f"Path '{filepath}' not found in the datadir scopes {self.scopes.keys()}")
+        raise KeyError(
+            f"Path '{filepath}' not found in the datadir scopes {self.scopes.keys()}"
+        )
 
     def add_scope(self, scope_name, module=None, cls=None, func=None):
         """Add scopes to be searched for data files, in addition to request."""
         self.scopes[scope_name] = self.ScopedDataDirDict(
-            self.datapath, self.NameObject(module, cls=cls, func=func), keep_global=False
+            self.datapath,
+            self.NameObject(module, cls=cls, func=func),
+            keep_global=False,
         )
 
     def scope_to_path(self, scope="module", create=True):
@@ -111,10 +138,19 @@ class DataDirManager(object):
             outdir.mkdir(exist_ok=True, parents=True)
         return outdir
 
-    def paths_from_scope(self, module=None, cls=None, func=None, excludepaths=None, excludepatterns=None):
+    def paths_from_scope(
+        self,
+        module=None,
+        cls=None,
+        func=None,
+        excludepaths=None,
+        excludepatterns=None,
+    ):
         """Return all paths to files in a given scope."""
         search_scopes = self.ScopedDataDirDict(
-            self.datapath, self.NameObject(module, cls=cls, func=func), keep_global=True
+            self.datapath,
+            self.NameObject(module, cls=cls, func=func),
+            keep_global=True,
         )
         for scope in SCOPES:  # find most-specific scope requested
             if scope in search_scopes:
@@ -126,13 +162,26 @@ class DataDirManager(object):
                 print("No extant datadir at requested scope")
             return []
         found_paths = self.find_all_files(
-            search_dir, excludepaths=excludepaths, excludepatterns=excludepatterns, relative=True
+            search_dir,
+            excludepaths=excludepaths,
+            excludepatterns=excludepatterns,
+            relative=True,
         )
         if self.verbose:
-            print(f"Found {len(found_paths)} paths from scope {search_dir.name}.")
+            print(
+                f"Found {len(found_paths)} paths from scope {search_dir.name}."
+            )
         return found_paths
 
-    def download(self, download_url=None, files=None, scope="module", gunzip=False, md5_check=False, progressbar=False):
+    def download(
+        self,
+        download_url=None,
+        files=None,
+        scope="module",
+        gunzip=False,
+        md5_check=False,
+        progressbar=False,
+    ):
         """Download files to datafile directory at scope with optional gunzip and MD5 check."""
         if download_url is None:
             raise ValueError("download_url must be specified")
@@ -151,7 +200,9 @@ class DataDirManager(object):
                     md5 = dlname + ".md5"
                     check_type = "MD5 checked"
                     if self.verbose:
-                        print(f"downloading {download_url}{dlname} with MD5 check")
+                        print(
+                            f"downloading {download_url}{dlname} with MD5 check"
+                        )
                     md5_path = download_path / md5
                     if not md5_path.exists():
                         request_download(download_url + md5, md5_path)
@@ -167,7 +218,9 @@ class DataDirManager(object):
                     trackers = (hasher, ProgressTracker(DataTransferBar()))
                 else:
                     trackers = (hasher,)
-                request_download(download_url + dlname, tmp_path, trackers=trackers)
+                request_download(
+                    download_url + dlname, tmp_path, trackers=trackers
+                )
                 hash_val = hasher.hashobj.hexdigest()
                 if (not md5_check) or (md5_val == hash_val):
                     if gunzip:
@@ -182,11 +235,18 @@ class DataDirManager(object):
                         if self.verbose:
                             print(f"downloaded {check_type} file to {path}")
                 else:
-                    raise ValueError(f"\nhash of {dlname}={hash_val}, expected {md5_val}")
+                    raise ValueError(
+                        f"\nhash of {dlname}={hash_val}, expected {md5_val}"
+                    )
 
     @contextlib.contextmanager
     def in_tmp_dir(
-        self, inpathlist=None, save_outputs=False, outscope="module", excludepaths=None, excludepatterns=None
+        self,
+        inpathlist=None,
+        save_outputs=False,
+        outscope="module",
+        excludepaths=None,
+        excludepatterns=None,
     ):
         """Copy data and change context to tmp_path directory."""
         cwd = Path.cwd()
@@ -206,7 +266,9 @@ class DataDirManager(object):
         finally:
             if save_outputs:
                 outpaths = self.find_all_files(
-                    Path("."), excludepaths=inpathlist + excludepaths, excludepatterns=excludepatterns
+                    Path("."),
+                    excludepaths=inpathlist + excludepaths,
+                    excludepatterns=excludepatterns,
                 )
                 for outpath in outpaths:
                     self.savepath(outpath, scope=outscope)
@@ -222,15 +284,25 @@ class DataDirManager(object):
             outdir.mkdir(parents=True)
         shutil.copy2(path, outdir / path.name)
 
-    def find_all_files(self, dir_path, excludepaths=None, excludepatterns=None, relative=False):
+    def find_all_files(
+        self, dir_path, excludepaths=None, excludepatterns=None, relative=False
+    ):
         """Return a list of all files in directory not in exclusion list."""
         file_list = []
         n_paths = 0
         if excludepaths is None:
             excludepaths = []
         # Exclude directories whose names conflict with module or test functions.
-        excludepaths += [d.relative_to(dir_path) for d in dir_path.glob("test_*") if d.is_dir()]
-        excludepaths += [d.relative_to(dir_path) for d in dir_path.glob("*_test") if d.is_dir()]
+        excludepaths += [
+            d.relative_to(dir_path)
+            for d in dir_path.glob("test_*")
+            if d.is_dir()
+        ]
+        excludepaths += [
+            d.relative_to(dir_path)
+            for d in dir_path.glob("*_test")
+            if d.is_dir()
+        ]
         if excludepatterns is None:
             excludepatterns = []
         for abspath in [f for f in dir_path.rglob("*") if f.is_file()]:
@@ -249,7 +321,9 @@ class DataDirManager(object):
             else:
                 file_list.append(abspath)
         if self.verbose:
-            print(f"{len(file_list)} out of {n_paths} file paths passed exclusion.")
+            print(
+                f"{len(file_list)} out of {n_paths} file paths passed exclusion."
+            )
         return file_list
 
     def __repr__(self):
