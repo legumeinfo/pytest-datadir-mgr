@@ -45,7 +45,7 @@ sphinx = "^3.0.1"
 recommonmark = "^0.6.0"
 nox = "^2020.5.24"
 pre-commit = "^2.4.0"
-pylint = "^2.5.2"
+pylint = "^2.5.3"
 flynt = "^0.48.1"
 poetry-dynamic-versioning = "^0.8.1"
 
