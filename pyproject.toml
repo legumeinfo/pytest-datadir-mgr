@@ -38,7 +38,7 @@ progressbar2 = "^3.50.1"
 requests_download = "^0.1.2"
 
 [tool.poetry.dev-dependencies]
-pytest-cov = "^2.8.1"
+pytest-cov = "^2.10.0"
 black = "^19.10b0"
 isort = {extras = ["pyproject"], version = "^4.3.21"}
 sphinx = "^3.0.1"
