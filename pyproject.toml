@@ -33,7 +33,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.6.1"
-pytest = "^5.4.1"
+pytest = ">=5.4.1,<7.0.0"
 progressbar2 = "^3.50.1"
 requests_download = "^0.1.2"
 
