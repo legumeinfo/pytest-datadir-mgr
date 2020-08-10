@@ -221,7 +221,7 @@ description = "CLI tool to convert a python project's %-formatted strings to f-s
 name = "flynt"
 optional = false
 python-versions = ">=3.6"
-version = "0.48.1"
+version = "0.50"
 
 [package.dependencies]
 astor = "*"
@@ -842,7 +842,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "14d864e01cb4f2a409169be7878c9264f104c1954eb9a526fae65a152f0685df"
+content-hash = "35904cf585a87b27f95a84eafde6b2b839815cddaf6b58a5585ad2bacc564304"
 python-versions = "^3.6.1"
 
 [metadata.files]
@@ -959,8 +959,8 @@ filelock = [
     {file = "filelock-3.0.12.tar.gz", hash = "sha256:18d82244ee114f543149c66a6e0c14e9c4f8a1044b5cdaadd0f82159d6a6ff59"},
 ]
 flynt = [
-    {file = "flynt-0.48.1-py3-none-any.whl", hash = "sha256:fecc26be43f3bc405d19cbfefcefc37b65a6f4ec8f9a8b0ec5c47387762fe3c6"},
-    {file = "flynt-0.48.1.tar.gz", hash = "sha256:be3b1bff310983e121ecc5f1608b25ed5891b78a0ad2071499a003b2b6a12cae"},
+    {file = "flynt-0.50-py3-none-any.whl", hash = "sha256:f68d4f9732cf28547dad5ccb61233766b1f67d8a80c1a8d21ae4d9bd24a02fcc"},
+    {file = "flynt-0.50.tar.gz", hash = "sha256:e151bab9f72d8d2cfca2d7cb6f20f53f9bb8deeebde69a3458814a1ac1f93e7c"},
 ]
 identify = [
     {file = "identify-1.4.20-py2.py3-none-any.whl", hash = "sha256:acf0712ab4042642e8f44e9532d95c26fbe60c0ab8b6e5b654dd1bc6512810e0"},
