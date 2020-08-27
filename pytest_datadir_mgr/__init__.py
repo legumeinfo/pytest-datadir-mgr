@@ -26,7 +26,7 @@ SCOPES = (
     "module",
     "global",
 )  # ordered from lowest to highest
-__version__ = "1.1.1"
+__version__ = "1.1.2"
 
 
 class DataDirManager:

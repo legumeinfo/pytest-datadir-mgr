@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pytest-datadir-mgr"
-version = "1.1.1"
+version = "1.1.2"
 description = "Manager for test data providing downloads, caching of generated files, and a context for temp directories."
 authors = ["Joel Berendzen <joelb@ncgr.org>"]
 license = "BSD-3-Clause"
@@ -41,7 +41,6 @@ requests_download = "^0.1.2"
 pytest-cov = "^2.8.1"
 black = "^19.10b0"
 isort = {extras = ["pyproject"], version = "^4.3.21"}
-sphinx = "^3.0.1"
 recommonmark = "^0.6.0"
 nox = "^2020.5.24"
 pre-commit = "^2.4.0"
