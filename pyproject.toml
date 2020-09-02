@@ -39,6 +39,7 @@ requests_download = "^0.1.2"
 
 [tool.poetry.dev-dependencies]
 pytest-cov = "^2.8.1"
+coverage = {extras = ["toml"], version = "^5.1"}
 black = "^19.10b0"
 isort = {extras = ["pyproject"], version = "^4.3.21"}
 recommonmark = "^0.6.0"
