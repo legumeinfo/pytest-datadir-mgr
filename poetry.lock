@@ -221,7 +221,7 @@ python-versions = "*"
 
 [[package]]
 name = "flynt"
-version = "0.48.1"
+version = "0.52"
 description = "CLI tool to convert a python project's %-formatted strings to f-strings."
 category = "dev"
 optional = false
@@ -844,7 +844,7 @@ testing = ["jaraco.itertools", "func-timeout"]
 [metadata]
 lock-version = "1.0"
 python-versions = "^3.6.1"
-content-hash = "b7fd60abfd3301a442a35a3c4546835b11e17c2cfdbc6e16dbd8e569c433aef4"
+content-hash = "c7178e7c66478f3e0ed9422d4a2348c8f4de158be615c17a5cf844f8e877e1ad"
 
 [metadata.files]
 alabaster = [
@@ -964,8 +964,8 @@ filelock = [
     {file = "filelock-3.0.12.tar.gz", hash = "sha256:18d82244ee114f543149c66a6e0c14e9c4f8a1044b5cdaadd0f82159d6a6ff59"},
 ]
 flynt = [
-    {file = "flynt-0.48.1-py3-none-any.whl", hash = "sha256:fecc26be43f3bc405d19cbfefcefc37b65a6f4ec8f9a8b0ec5c47387762fe3c6"},
-    {file = "flynt-0.48.1.tar.gz", hash = "sha256:be3b1bff310983e121ecc5f1608b25ed5891b78a0ad2071499a003b2b6a12cae"},
+    {file = "flynt-0.52-py3-none-any.whl", hash = "sha256:0116fd1a42c05390da4efe2f44848aae8b7b33d267af2160fa428c30ba143979"},
+    {file = "flynt-0.52.tar.gz", hash = "sha256:f27e1223ee3d4bf0a6ab9b56c567264fb5c1635e02b29d3f51178777277af5ae"},
 ]
 identify = [
     {file = "identify-1.4.30-py2.py3-none-any.whl", hash = "sha256:f9f84a4ff44e29b9cc23c4012c2c8954089860723f80ce63d760393e5f197108"},
