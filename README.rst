@@ -26,14 +26,16 @@ five methods useful for adding to the test data stored in the repository:
   can be saved at a particular scope at cleanup with an optional exclusion
   filter pattern (e.g., for excluding log files).  Note that files in directories
   that begin with ``test_`` or end with ``_test`` could be confused with
-  scope directories and cannnot be saved.
+  scope directories and cannnot be saved.  If ``progressbar`` is set to "True",
+  then the progress of file copying will be shown, which is helpful in some long-running
+  pytest jobs, e.g. on Travis.
 - The ``paths_from_scope`` returns a list of all paths to files from a specified scope.
 
 
 Prerequisites
 -------------
 Python 3.6 or greater is required.
-This package is tested under Linux and MacOS using Python 3.7.
+This package is tested under Linux and MacOS using Python 3.8.
 
 Installation for Users
 ----------------------

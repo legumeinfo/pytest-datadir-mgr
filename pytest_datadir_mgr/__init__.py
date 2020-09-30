@@ -8,6 +8,7 @@ import hashlib
 import os
 import shutil
 from collections import OrderedDict
+from datetime import datetime
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -247,38 +248,90 @@ class DataDirManager:
         outscope="module",
         excludepaths=None,
         excludepatterns=None,
+        progressbar=False,
     ):
         """Copy data and change context to tmp_path directory."""
         cwd = Path.cwd()
         if excludepaths is None:
             excludepaths = []
-        if inpathlist is not None:
-            inpathlist = [Path(path) for path in inpathlist]
-            for inpath in inpathlist:
+        if inpathlist is None:
+            inpathlist = []
+        else:
+            inpaths = [Path(p) for p in inpathlist]
+            scoped_paths = [self[p] for p in inpaths]
+            path_sizes = [p.stat().st_size for p in scoped_paths]
+            total_input_filesize = sum(path_sizes)
+            if progressbar:
+                print(
+                    f"Copying {len(inpaths)} files into {self.tmp_path}",
+                    flush=True,
+                )
+                progress_bar = DataTransferBar()
+                progress_bar.start(max_value=total_input_filesize)
+                transferred = 0
+            for i, inpath in enumerate(inpaths):
                 inpathdir = self.tmp_path / inpath.parent
                 inpathdir.mkdir(exist_ok=True, parents=True)
-                shutil.copy2(self[Path(inpath)], inpathdir / inpath.name)
+                shutil.copy2(scoped_paths[i], inpathdir / inpath.name)
+                if progressbar:
+                    transferred += path_sizes[i]
+                    progress_bar.update(transferred)
+            if progressbar:
+                progress_bar.finish()
         os.chdir(self.tmp_path)
-        if self.verbose:
-            print(f"running test in {self.tmp_path}")
         try:
             yield
         finally:
             if save_outputs:
-                outpaths = self.find_all_files(
-                    Path("."),
+                self.save_outputs(
                     excludepaths=inpathlist + excludepaths,
                     excludepatterns=excludepatterns,
+                    progressbar=progressbar,
+                    scope=outscope,
                 )
-                for outpath in outpaths:
-                    self.savepath(outpath, scope=outscope)
             os.chdir(cwd)
+
+    def save_outputs(
+        self,
+        excludepaths=None,
+        excludepatterns=None,
+        progressbar=False,
+        scope="module",
+    ):
+        """Save all outputs, with exclusions,  to a scope."""
+        if excludepaths is None:
+            excluded_paths = []
+        else:
+            excluded_paths = [Path(path) for path in excludepaths]
+        outpaths = self.find_all_files(
+            Path("."),
+            excludepaths=excluded_paths,
+            excludepatterns=excludepatterns,
+        )
+        path_sizes = [p.stat().st_size for p in outpaths]
+        total_save_filesize = sum(path_sizes)
+        if progressbar:
+            print(
+                f"Saving {len(outpaths)} output files from {self.tmp_path}",
+                flush=True,
+            )
+            progress_bar = DataTransferBar()
+            progress_bar.start(max_value=total_save_filesize)
+            transferred = 0
+        for i, outpath in enumerate(outpaths):
+            outpath = outpaths[i]
+            self.savepath(outpath, scope=scope)
+            if progressbar:
+                transferred += path_sizes[i]
+                progress_bar.update(transferred)
+        if progressbar:
+            progress_bar.finish()
 
     def savepath(self, path, scope="module"):
         """Save a path in cwd to datadir at specified scope."""
         scopedir = self.scope_to_path(scope)
         if self.verbose:
-            print(f'saving "{path}" to {scopedir}"')
+            print(f'saving "{path}" to {scopedir}"', flush=True)
         outdir = scopedir / path.parent
         if outdir != scopedir and not outdir.exists():
             outdir.mkdir(parents=True)
@@ -289,7 +342,8 @@ class DataDirManager:
     ):
         """Return a list of all files in directory not in exclusion list."""
         file_list = []
-        n_paths = 0
+        if excludepatterns is None:
+            excludepatterns = []
         if excludepaths is None:
             excludepaths = []
         # Exclude directories whose names conflict with module or test functions.
@@ -303,16 +357,15 @@ class DataDirManager:
             for d in dir_path.glob("*_test")
             if d.is_dir()
         ]
-        if excludepatterns is None:
-            excludepatterns = []
-        for abspath in [f for f in dir_path.rglob("*") if f.is_file()]:
-            n_paths += 1
+        excluded_paths = set(excludepaths)
+        file_paths = [f for f in dir_path.rglob("*") if f.is_file()]
+        for abspath in file_paths:
             relpath = abspath.relative_to(dir_path)
             try:
                 top_parent = list(relpath.parents)[-2]
             except IndexError:
                 top_parent = None
-            if any([(relpath == p or top_parent == p) for p in excludepaths]):
+            if (relpath in excluded_paths) or (top_parent in excluded_paths):
                 continue
             if any([relpath.match(p) for p in excludepatterns]):
                 continue
@@ -322,7 +375,7 @@ class DataDirManager:
                 file_list.append(abspath)
         if self.verbose:
             print(
-                f"{len(file_list)} out of {n_paths} file paths passed exclusion."
+                f"{len(file_list)} out of {len(file_list)} file paths passed exclusion."
             )
         return file_list
 

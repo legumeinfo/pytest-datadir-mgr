@@ -196,7 +196,8 @@ disable = """,
    consider-using-in,
    """
 
-
+[tool.pytest.ini_options]
+addopts = "--cov=pytest_datadir_mgr -x"
 
 [build-system]
 requires = ["poetry>=0.12"]

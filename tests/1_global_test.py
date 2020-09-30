@@ -37,10 +37,11 @@ def test_add_scope(datadir_mgr):
         assert contents == "data at function scope\n"
 
 
-def test_savepath(datadir_mgr, tmpdir):
+def test_savepath(datadir_mgr, tmpdir, capsys):
     """Test saving file to a scope."""
     os.chdir(tmpdir)
     data1_path = Path("data1.txt")
-    with data1_path.open("w") as filehandle:
-        filehandle.write("data saved from test_savepath\n")
-    datadir_mgr.savepath(data1_path, scope="function")
+    with capsys.disabled():
+        with data1_path.open("w") as filehandle:
+            filehandle.write("data saved from test_savepath\n")
+        datadir_mgr.savepath(data1_path, scope="function")
