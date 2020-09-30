@@ -81,23 +81,25 @@ def test_empty_tmp_dir(datadir_mgr):
             filehandle.write(NEWMSG)
 
 
-def test_in_tmp_dir(datadir_mgr):
+def test_in_tmp_dir(datadir_mgr, capsys):
     """Test using context manager with saved data."""
-    with datadir_mgr.in_tmp_dir(
-        inpathlist=[DLFILE, TESTFILE],
-        save_outputs=True,
-        outscope="function",
-        excludepatterns=["*.log"],
-    ):
-        data1 = open(datadir_mgr[TESTFILE]).read()
-        dlpath = Path(DLFILE)
-        assert data1 == "data at module scope\n"
-        assert dlpath.exists()
-        NEWPATH.parent.mkdir(parents=True, exist_ok=True)
-        with NEWPATH.open("w") as filehandle:
-            filehandle.write(NEWMSG)
-        with LOGPATH.open("w") as logfilehandle:
-            logfilehandle.write("here is a log file")
+    with capsys.disabled():
+        with datadir_mgr.in_tmp_dir(
+            inpathlist=[DLFILE, TESTFILE],
+            save_outputs=True,
+            outscope="function",
+            excludepatterns=["*.log"],
+            progressbar=True,
+        ):
+            data1 = open(datadir_mgr[TESTFILE]).read()
+            dlpath = Path(DLFILE)
+            assert data1 == "data at module scope\n"
+            assert dlpath.exists()
+            NEWPATH.parent.mkdir(parents=True, exist_ok=True)
+            with NEWPATH.open("w") as filehandle:
+                filehandle.write(NEWMSG)
+            with LOGPATH.open("w") as logfilehandle:
+                logfilehandle.write("here is a log file")
     assert not dlpath.exists()
 
 

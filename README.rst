@@ -65,23 +65,23 @@ Test ``datadir-mgr`` with ``poetry``: ::
 
 Project Status
 --------------
-+-------------------+------------+
-| Latest Release    | |pypi|     |
-+-------------------+------------+
-| GitHub            | |repo|     |
-+-------------------+------------+
-| License           | |license|  |
-+-------------------+------------+
-| Travis Build      | |travis|   |
-+-------------------+------------+
-| Coverage          | |coverage| |
-+-------------------+------------+
-| Code Grade        | |codacy|   |
-+-------------------+------------+
-| Dependencies      | |depend|   |
-+-------------------+------------+
-| Issues            | |issues|   |
-+-------------------+------------+
++-------------------+-------------+
+| Latest Release    | |pypi|      |
++-------------------+-------------+
+| Activity          | |downloads| |
++-------------------+-------------+
+| License           | |license|   |
++-------------------+-------------+
+| Travis Build      | |travis|    |
++-------------------+-------------+
+| Coverage          | |coverage|  |
++-------------------+-------------+
+| Code Grade        | |codacy|    |
++-------------------+-------------+
+| Dependencies      | |depend|    |
++-------------------+-------------+
+| Issues            | |issues|    |
++-------------------+-------------+
 
 .. _pytest: http://pytest.org/
 
@@ -117,3 +117,6 @@ Project Status
      :target: https://app.dependabot.com/accounts/legumeinfo/repos/236847525
      :alt: dependabot dependencies
 
+.. |downloads| image:: https://pepy.tech/badge/pytest_datadir_mgr
+     :target: https://pepy.tech/project/pytest_datadir_mgr
+     :alt: Download stats
