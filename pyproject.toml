@@ -46,7 +46,7 @@ nox = "^2020.5.24"
 pre-commit = "^2.4.0"
 pylint = "^2.5.2"
 poetry-dynamic-versioning = "^0.8.1"
-flynt = "^0.52"
+flynt = "^0.56"
 pytest-cov = "^2.10.1"
 
 [tool.poetry.plugins]
