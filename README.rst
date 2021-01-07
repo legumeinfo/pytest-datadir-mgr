@@ -78,8 +78,6 @@ Project Status
 +-------------------+-------------+
 | Code Grade        | |codacy|    |
 +-------------------+-------------+
-| Dependencies      | |depend|    |
-+-------------------+-------------+
 | Issues            | |issues|    |
 +-------------------+-------------+
 
@@ -112,10 +110,6 @@ Project Status
 .. |issues| image:: https://img.shields.io/github/issues/legumeinfo/pytest-datadir-mgr.svg
     :target:  https://github.com/legumeinfo/pytest-datadir-mgr/issues
     :alt: Issues reported
-
-.. |depend| image:: https://api.dependabot.com/badges/status?host=github&repo=legumeinfo/pytest-datadir-mgr
-     :target: https://app.dependabot.com/accounts/legumeinfo/repos/236847525
-     :alt: dependabot dependencies
 
 .. |downloads| image:: https://pepy.tech/badge/pytest_datadir_mgr
      :target: https://pepy.tech/project/pytest_datadir_mgr
