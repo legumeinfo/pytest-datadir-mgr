@@ -38,7 +38,7 @@ progressbar2 = "^3.52.1"
 pytest = "^6.0.1"
 
 [tool.poetry.dev-dependencies]
-coverage = {extras = ["toml"], version = "^5.1"}
+coverage = {extras = ["toml"], version = "^5.5"}
 black = {version = "^20.8b1", allow-prereleases = true}
 isort = {extras = ["pyproject"], version = "^5.4.2"}
 nox = "^2020.5.24"
