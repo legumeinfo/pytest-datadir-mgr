@@ -47,7 +47,7 @@ pylint = "^2.5.2"
 pytest-cov = "^2.10.1"
 poetry-dynamic-versioning = "^0.12.1"
 flynt = "^0.58"
-Sphinx = "^3.4.3"
+Sphinx = "^4.0.1"
 
 [tool.poetry.plugins]
 pytest11 = { datadir_mgr = "pytest_datadir_mgr" }
