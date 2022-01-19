@@ -42,7 +42,7 @@ coverage = {extras = ["toml"], version = "^5.1"}
 black = {version = "^20.8b1", allow-prereleases = true}
 isort = {extras = ["pyproject"], version = "^5.4.2"}
 nox = "^2020.5.24"
-pre-commit = "^2.4.0"
+pre-commit = "^2.17.0"
 pylint = "^2.5.2"
 pytest-cov = "^2.10.1"
 poetry-dynamic-versioning = "^0.12.1"
