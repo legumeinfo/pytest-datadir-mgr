@@ -35,7 +35,7 @@ classifiers = [
 python = "^3.6.1"
 requests_download = "^0.1.2"
 progressbar2 = "^3.52.1"
-pytest = "^6.0.1"
+pytest = "^7.0.1"
 
 [tool.poetry.dev-dependencies]
 coverage = {extras = ["toml"], version = "^5.1"}
